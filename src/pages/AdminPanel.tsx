@@ -198,9 +198,9 @@ const AdminPanel: React.FC = () => {
             setIsSaving(true);
             try {
               if (editingProduct) {
-                await updateProduct(editingProduct.id, data);
+                await updateProduct(editingProduct.id, data as any);
               } else {
-                await addProduct(data);
+                await addProduct(data as any);
               }
               setIsModalOpen(false);
               triggerToast();
