@@ -330,7 +330,7 @@ const SettingsForm = ({ settings, onSave, isSaving }: { settings: any, onSave: (
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -412,7 +412,7 @@ const ProductModal = ({
   isSaving: boolean,
   uploadFile: (file: File, bucket: string) => Promise<string | null>
 }) => {
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<Partial<Product>>({
     store_id: storeId,
     name: '',
     description: '',

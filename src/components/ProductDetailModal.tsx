@@ -92,7 +92,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                         {v.options.map((opt) => (
                           <button
                             key={opt}
-                            onClick={() => setSelectedVariations(prev => ({ ...prev, [v.name]: opt }))}
+                            onClick={() => setSelectedVariations((prev: Record<string, string>) => ({ ...prev, [v.name]: opt }))}
                             className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border ${
                               selectedVariations[v.name] === opt
                                 ? 'bg-brand-primary border-brand-primary text-brand-dark'
