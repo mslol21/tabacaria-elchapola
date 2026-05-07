@@ -226,7 +226,7 @@ const AdminPanel: React.FC = () => {
 
 // --- Sub-components ---
 
-const SidebarLink = ({ icon, label, active, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) => (
+const SidebarLink = ({ icon, label, active, onClick }: { icon: React.ReactNode, label: string, active: boolean, onClick: () => void }) => (
   <button 
     onClick={onClick}
     className={`flex items-center gap-3 p-4 w-full rounded-2xl transition-all ${
@@ -321,7 +321,7 @@ const ProductsTable = ({
   </div>
 );
 
-const SettingsForm = ({ settings, onSave, isSaving }: { settings: any, onSave: (data: any) => void, isSaving: boolean }) => {
+const SettingsForm = ({ settings, onSave, isSaving }: { settings: StoreSettings | null, onSave: (data: Partial<StoreSettings>) => void, isSaving: boolean }) => {
   const [formData, setFormData] = useState<Partial<StoreSettings>>({});
 
   useEffect(() => {
@@ -408,7 +408,7 @@ const ProductModal = ({
   categories: Category[],
   storeId: string,
   onClose: () => void, 
-  onSave: (data: any) => void, 
+  onSave: (data: Partial<Product>) => void, 
   isSaving: boolean,
   uploadFile: (file: File, bucket: string) => Promise<string | null>
 }) => {
