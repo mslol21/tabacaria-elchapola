@@ -279,7 +279,7 @@ const AdminPanel: React.FC = () => {
               if (editingCategory) {
                 await updateCategory(editingCategory.id, data);
               } else {
-                await addCategory(data);
+                await addCategory(data as any);
               }
               setIsCategoryModalOpen(false);
               triggerToast();
@@ -303,7 +303,7 @@ const AdminPanel: React.FC = () => {
               if (editingVariation) {
                 await updateGlobalOption(editingVariation.id, data);
               } else {
-                await addGlobalOption(data);
+                await addGlobalOption(data as any);
               }
               setIsVariationModalOpen(false);
               triggerToast();
