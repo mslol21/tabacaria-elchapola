@@ -10,6 +10,8 @@ CREATE TABLE settings (
     instagram TEXT,
     tiktok TEXT,
     slogan TEXT,
+    address TEXT,
+    opening_hours TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

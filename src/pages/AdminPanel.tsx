@@ -611,7 +611,28 @@ const SettingsForm = ({ settings, onSave, isSaving }: { settings: StoreSettings 
           name="slogan"
           value={formData.slogan || ''}
           onChange={handleChange}
-          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all h-32"
+          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all h-24"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Endereço Completo</label>
+        <textarea 
+          name="address"
+          value={formData.address || ''}
+          onChange={handleChange}
+          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all h-24"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Horário de Funcionamento</label>
+        <textarea 
+          name="opening_hours"
+          value={formData.opening_hours || ''}
+          onChange={handleChange}
+          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all h-24"
+          placeholder="Ex: Segunda a Sábado: 09h às 22h\nDomingo e Feriados: 09h às 18h"
         />
       </div>
       

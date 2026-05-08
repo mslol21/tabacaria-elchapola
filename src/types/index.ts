@@ -6,6 +6,8 @@ export interface StoreSettings {
   instagram: string;
   tiktok: string;
   slogan: string;
+  address?: string;
+  opening_hours?: string;
 }
 
 export interface Category {
