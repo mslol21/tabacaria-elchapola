@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, MessageCircle, Home, Search } from 'lucide-react';
+import { ShoppingBag, MessageCircle, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { useData } from '../context/DataContext';

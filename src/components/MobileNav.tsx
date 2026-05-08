@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Search, ShoppingBag, Instagram } from 'lucide-react';
+import { Home, Search, ShoppingBag, Camera } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 
@@ -60,7 +60,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ onOpenCart }) => {
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1 p-3 text-white/50 hover:text-brand-primary transition-colors"
         >
-          <Instagram size={20} />
+          <Camera size={20} />
           <span className="text-[10px] font-bold uppercase tracking-tighter">Insta</span>
         </a>
       </motion.div>
