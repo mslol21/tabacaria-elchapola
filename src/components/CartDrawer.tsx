@@ -13,10 +13,22 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   const { cart, removeFromCart, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
   const { settings } = useData();
 
+  const [orderType, setOrderType] = React.useState<'balcao' | 'mesa' | 'delivery'>('balcao');
+  const [tableNumber, setTableNumber] = React.useState('');
+
+  const vibrate = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+  };
+
   const handleCheckout = () => {
     if (!settings?.whatsapp) return;
 
-    let message = `*Novo Pedido - ${settings.name}*\n\n`;
+    let message = `*Novo Pedido - ${settings.name}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `📍 *Local:* ${orderType === 'balcao' ? 'Balcão' : orderType === 'mesa' ? `Mesa ${tableNumber}` : 'Delivery'}\n\n`;
+    
     cart.forEach(item => {
       message += `• ${item.quantity}x ${item.name}`;
       if (item.selectedVariations) {
@@ -136,12 +148,48 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   <span className="text-2xl font-black text-white">R$ {totalPrice.toFixed(2)}</span>
                 </div>
                 
+                {/* Order Type Selection */}
+                <div className="space-y-3 mb-6">
+                  <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">Onde você está?</p>
+                  <div className="flex gap-2">
+                    {[
+                      { id: 'balcao', label: 'Balcão' },
+                      { id: 'mesa', label: 'Mesa' },
+                      { id: 'delivery', label: 'Delivery' }
+                    ].map((type) => (
+                      <button
+                        key={type.id}
+                        onClick={() => { vibrate(); setOrderType(type.id as any); }}
+                        className={`flex-1 py-3 rounded-xl text-xs font-black transition-all border ${
+                          orderType === type.id 
+                            ? 'bg-brand-primary border-brand-primary text-brand-dark' 
+                            : 'bg-white/5 border-white/10 text-white/50 hover:border-white/20'
+                        }`}
+                      >
+                        {type.label.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {orderType === 'mesa' && (
+                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                      <input 
+                        type="text" 
+                        placeholder="Número da Mesa"
+                        value={tableNumber}
+                        onChange={(e) => setTableNumber(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white text-sm focus:border-brand-primary outline-none"
+                      />
+                    </motion.div>
+                  )}
+                </div>
+
                 <button
-                  onClick={handleCheckout}
-                  className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-dark font-black py-5 rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-brand-primary/20 transition-all"
+                  onClick={() => { vibrate(); handleCheckout(); }}
+                  className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-dark font-black py-5 rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-brand-primary/20 transition-all active:scale-[0.98]"
                 >
                   <Send size={20} />
-                  FINALIZAR NO WHATSAPP
+                  FINALIZAR PEDIDO
                 </button>
                 
                 <button 
