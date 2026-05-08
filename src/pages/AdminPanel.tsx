@@ -259,6 +259,7 @@ const AdminPanel: React.FC = () => {
           isSaving={isSaving}
           uploadFile={uploadFile}
         />
+      )}
       {/* Category Modal */}
       {isCategoryModalOpen && (
         <CategoryModal 
@@ -297,7 +298,7 @@ const AdminPanel: React.FC = () => {
               } else {
                 await addGlobalOption(data);
               }
-              setIsVariationModalOpen(true);
+              setIsVariationModalOpen(false);
               triggerToast();
             } finally {
               setIsSaving(false);
