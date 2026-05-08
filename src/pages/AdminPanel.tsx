@@ -16,17 +16,24 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { useStore } from '../context/StoreContext';
-import type { Product, Category, StoreSettings } from '../types';
+import type { Product, Category, StoreSettings, GlobalOption } from '../types';
 
 const AdminPanel: React.FC = () => {
   const navigate = useNavigate();
   const { 
     products, 
     categories, 
+    globalOptions,
     settings, 
     addProduct, 
     updateProduct, 
     deleteProduct,
+    addCategory,
+    updateCategory,
+    deleteCategory,
+    addGlobalOption,
+    updateGlobalOption,
+    deleteGlobalOption,
     updateSettings,
     uploadFile 
   } = useData();
@@ -661,7 +668,7 @@ const ProductModal = ({
     const file = e.target.files?.[0];
     if (file) {
       const url = await uploadFile(file, 'products');
-      if (url) setFormData(prev => ({ ...prev, image: url }));
+      if (url) setFormData((prev: any) => ({ ...prev, image: url }));
     }
   };
 
@@ -703,7 +710,7 @@ const ProductModal = ({
               <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Nome</label>
               <input 
                 value={formData.name}
-                onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                onChange={e => setFormData((prev: any) => ({ ...prev, name: e.target.value }))}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
               />
             </div>
@@ -715,7 +722,7 @@ const ProductModal = ({
                   type="number"
                   step="0.01"
                   value={formData.price}
-                  onChange={e => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) }))}
+                  onChange={e => setFormData((prev: any) => ({ ...prev, price: parseFloat(e.target.value) }))}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
                 />
               </div>
@@ -723,7 +730,7 @@ const ProductModal = ({
                 <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Categoria</label>
                 <select 
                   value={formData.category}
-                  onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                  onChange={e => setFormData((prev: any) => ({ ...prev, category: e.target.value }))}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all appearance-none"
                 >
                   {categories.map(cat => (
@@ -737,7 +744,7 @@ const ProductModal = ({
               <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Descrição</label>
               <textarea 
                 value={formData.description}
-                onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                onChange={e => setFormData((prev: any) => ({ ...prev, description: e.target.value }))}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all h-32"
               />
             </div>
@@ -746,7 +753,7 @@ const ProductModal = ({
               <input 
                 type="checkbox"
                 checked={formData.is_active}
-                onChange={e => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
+                onChange={e => setFormData((prev: any) => ({ ...prev, is_active: e.target.checked }))}
                 className="w-5 h-5 accent-brand-primary"
                 id="active"
               />
@@ -805,7 +812,7 @@ const CategoryModal = ({
     const file = e.target.files?.[0];
     if (file) {
       const url = await uploadFile(file, 'categories');
-      if (url) setFormData(prev => ({ ...prev, image: url }));
+      if (url) setFormData((prev: any) => ({ ...prev, image: url }));
     }
   };
 
@@ -845,7 +852,7 @@ const CategoryModal = ({
             <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Nome</label>
             <input 
               value={formData.name}
-              onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              onChange={e => setFormData((prev: any) => ({ ...prev, name: e.target.value }))}
               className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
             />
           </div>
@@ -900,7 +907,7 @@ const VariationModal = ({
     const file = e.target.files?.[0];
     if (file) {
       const url = await uploadFile(file, 'variations');
-      if (url) setFormData(prev => ({ ...prev, image: url }));
+      if (url) setFormData((prev: any) => ({ ...prev, image: url }));
     }
   };
 
@@ -922,7 +929,7 @@ const VariationModal = ({
               <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Tipo</label>
               <select 
                 value={formData.type}
-                onChange={e => setFormData(prev => ({ ...prev, type: e.target.value as any }))}
+                onChange={e => setFormData((prev: any) => ({ ...prev, type: e.target.value as any }))}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all appearance-none"
               >
                 <option value="color" className="bg-brand-dark">Cor/Estilo</option>
@@ -935,7 +942,7 @@ const VariationModal = ({
                 type="number"
                 step="0.01"
                 value={formData.price}
-                onChange={e => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) }))}
+                onChange={e => setFormData((prev: any) => ({ ...prev, price: parseFloat(e.target.value) }))}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
               />
             </div>
@@ -945,7 +952,7 @@ const VariationModal = ({
             <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Nome</label>
             <input 
               value={formData.name}
-              onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              onChange={e => setFormData((prev: any) => ({ ...prev, name: e.target.value }))}
               className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
               placeholder="Ex: Prata, Com Gelo, etc."
             />
@@ -955,7 +962,7 @@ const VariationModal = ({
             <label className="text-xs font-black text-white/40 uppercase tracking-widest ml-1">Grupo (Opcional)</label>
             <input 
               value={formData.group}
-              onChange={e => setFormData(prev => ({ ...prev, group: e.target.value }))}
+              onChange={e => setFormData((prev: any) => ({ ...prev, group: e.target.value }))}
               className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-4 text-white focus:border-brand-primary outline-none transition-all"
               placeholder="Ex: Essências, Bebidas, etc."
             />
